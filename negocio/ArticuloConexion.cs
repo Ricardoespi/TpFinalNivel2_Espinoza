@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -65,6 +66,29 @@ namespace negocio
             }
             catch (Exception ex)
             { MessageBox.Show(ex.ToString()); }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+        public void modificar(Articulo mod)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setQuery("update ARTICULOS set Codigo = @cod, Nombre = @nombre, Descripcion = @desc, IdMarca=@idMarca, IdCategoria=@idCat, ImagenUrl=@img, Precio=@precio where id = @id");
+                datos.setParametro("@id", mod.Id);
+                datos.setParametro("@cod", mod.Codigo);
+                datos.setParametro("@nombre", mod.Nombre);
+                datos.setParametro("@desc", mod.Descripcion);
+                datos.setParametro("@idMarca", mod.Marca.Id);
+                datos.setParametro("@idCat", mod.Categoria.Id);
+                datos.setParametro("@img", mod.ImagenUrl);
+                datos.setParametro("@precio", mod.Precio);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            { throw ex; }
             finally
             {
                 datos.cerrarConexion();

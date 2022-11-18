@@ -34,6 +34,7 @@ namespace presentacion
                 dgvArticulos.DataSource = listaArticulos;
                 ocultarColumnas();
                 Helper.cargarImg(listaArticulos[0].ImagenUrl, pbxArticulo);
+                dgvArticulos.Columns["Precio"].DefaultCellStyle.Format = "N2";
             }
             catch (Exception ex)
             { MessageBox.Show(ex.ToString()); }
@@ -82,6 +83,20 @@ namespace presentacion
         }
 
         private void btnModificar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Articulo aMod = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
+                frmNuevoArticulo mod = new frmNuevoArticulo(aMod);
+                mod.ShowDialog();
+                cargar();
+            }
+            catch (Exception  ex)
+            { throw ex; }
+            
+        }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
         {
 
         }

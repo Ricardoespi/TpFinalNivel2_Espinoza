@@ -35,8 +35,24 @@ namespace presentacion
         {
             MarcaConexion marcaDatos= new MarcaConexion();
             cboMarca.DataSource = marcaDatos.listar();
+            cboMarca.ValueMember = "Id";
+            cboMarca.DisplayMember = "Descripcion";
             CategoriaConexion catDatos = new CategoriaConexion();
+            cboCategoria.ValueMember = "Id";
+            cboCategoria.DisplayMember = "Descripcion";
             cboCategoria.DataSource = catDatos.listar();
+
+            if(articulo != null)
+            {
+                txtCodigo.Text = articulo.Codigo;
+                txtNombre.Text = articulo.Nombre;
+                txtDescripcion.Text = articulo.Descripcion;
+                cboMarca.SelectedValue = articulo.Marca.Id;
+                cboCategoria.SelectedValue = articulo.Categoria.Id;
+                txtImagenUrl.Text = articulo.ImagenUrl;
+                Helper.cargarImg(txtImagenUrl.Text, pbxNuevoArticulo);
+                nudPrecio.Value = articulo.Precio;
+            }
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -58,8 +74,16 @@ namespace presentacion
                 articulo.Categoria = (Categoria)cboCategoria.SelectedItem;
                 articulo.ImagenUrl = txtImagenUrl.Text;
                 articulo.Precio = nudPrecio.Value;
-                artConexion.agregar(articulo);
-                MessageBox.Show("Se ha agregado exitosamente");
+                if(articulo.Id != 0)
+                {
+                    artConexion.modificar(articulo);
+                    MessageBox.Show("Se ha modificado exitosamente");
+                }
+                else
+                {
+                    artConexion.agregar(articulo);
+                    MessageBox.Show("Se ha agregado exitosamente");
+                }
                 Close();
             }
             catch (Exception ex)

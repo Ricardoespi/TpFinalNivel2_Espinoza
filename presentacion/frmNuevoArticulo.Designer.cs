@@ -143,6 +143,7 @@
             // 
             // cboMarca
             // 
+            this.cboMarca.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboMarca.FormattingEnabled = true;
             this.cboMarca.Location = new System.Drawing.Point(101, 108);
             this.cboMarca.Name = "cboMarca";
@@ -151,6 +152,7 @@
             // 
             // cboCategoria
             // 
+            this.cboCategoria.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboCategoria.FormattingEnabled = true;
             this.cboCategoria.Location = new System.Drawing.Point(101, 135);
             this.cboCategoria.Name = "cboCategoria";
@@ -159,7 +161,7 @@
             // 
             // nudPrecio
             // 
-            this.nudPrecio.DecimalPlaces = 4;
+            this.nudPrecio.DecimalPlaces = 2;
             this.nudPrecio.Increment = new decimal(new int[] {
             100,
             0,
@@ -208,6 +210,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.ClientSize = new System.Drawing.Size(509, 300);
             this.Controls.Add(this.pbxNuevoArticulo);
             this.Controls.Add(this.btnCancelar);
@@ -227,7 +230,8 @@
             this.Controls.Add(this.lblCodigo);
             this.Controls.Add(this.txtCodigo);
             this.Name = "frmNuevoArticulo";
-            this.Text = "frmNuevoArticulo";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Nuevo Articulo";
             this.Load += new System.EventHandler(this.frmNuevoArticulo_Load);
             ((System.ComponentModel.ISupportInitialize)(this.nudPrecio)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbxNuevoArticulo)).EndInit();
