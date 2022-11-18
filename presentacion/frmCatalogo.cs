@@ -80,5 +80,10 @@ namespace presentacion
             catch (Exception ex)
             { throw ex; }
         }
+
+        private void btnModificar_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

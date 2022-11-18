@@ -41,6 +41,17 @@ namespace negocio
             catch (Exception ex)
             { throw ex; }
         }
+        public void ejecutarAccion()
+        {
+            try
+            {
+                comando.Connection = conexion;
+                conexion.Open();
+                comando.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            { throw ex; }
+        }
         public void cerrarConexion()
         {
             try
@@ -51,6 +62,16 @@ namespace negocio
             }
             catch (Exception ex)
             { throw ex; }
+        }
+        public void setParametro(string nombre, object valor)
+        {
+            try
+            {
+                comando.Parameters.AddWithValue(nombre, valor);
+            }
+            catch (Exception ex)
+            { throw ex;
+            }
         }
 
     }

@@ -159,7 +159,18 @@
             // 
             // nudPrecio
             // 
+            this.nudPrecio.DecimalPlaces = 4;
+            this.nudPrecio.Increment = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
             this.nudPrecio.Location = new System.Drawing.Point(101, 188);
+            this.nudPrecio.Maximum = new decimal(new int[] {
+            1000000000,
+            0,
+            0,
+            0});
             this.nudPrecio.Name = "nudPrecio";
             this.nudPrecio.Size = new System.Drawing.Size(142, 20);
             this.nudPrecio.TabIndex = 16;
@@ -172,15 +183,17 @@
             this.btnAceptar.TabIndex = 17;
             this.btnAceptar.Text = "Aceptar";
             this.btnAceptar.UseVisualStyleBackColor = true;
+            this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(202, 265);
+            this.btnCancelar.Location = new System.Drawing.Point(198, 265);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(75, 23);
             this.btnCancelar.TabIndex = 18;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // pbxNuevoArticulo
             // 
@@ -215,6 +228,7 @@
             this.Controls.Add(this.txtCodigo);
             this.Name = "frmNuevoArticulo";
             this.Text = "frmNuevoArticulo";
+            this.Load += new System.EventHandler(this.frmNuevoArticulo_Load);
             ((System.ComponentModel.ISupportInitialize)(this.nudPrecio)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbxNuevoArticulo)).EndInit();
             this.ResumeLayout(false);

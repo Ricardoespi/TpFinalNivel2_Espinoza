@@ -44,7 +44,9 @@
   <ItemGroup>
     <Compile Include="AccesoDatos.cs" />
     <Compile Include="ArticuloConexion.cs" />
+    <Compile Include="CategoriaConexion.cs" />
     <Compile Include="Helper.cs" />
+    <Compile Include="MarcaConexion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace negocio
 {
@@ -46,6 +47,28 @@ namespace negocio
             }
 
 
+        }
+        public void agregar(Articulo nuevo)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setQuery("insert into ARTICULOS (Codigo, Nombre, Descripcion, IdMarca, IdCategoria, ImagenUrl, Precio) values (@cod, @nombre, @desc, @marca, @cat, @img, @precio)");
+                datos.setParametro("@cod", nuevo.Codigo);
+                datos.setParametro("@nombre", nuevo.Nombre);
+                datos.setParametro("@desc", nuevo.Descripcion);
+                datos.setParametro("@marca", nuevo.Marca.Id);
+                datos.setParametro("@cat", nuevo.Categoria.Id);
+                datos.setParametro("@img", nuevo.ImagenUrl);
+                datos.setParametro("@precio", nuevo.Precio);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            { MessageBox.Show(ex.ToString()); }
+            finally
+            {
+                datos.cerrarConexion();
+            }
         }
     }
 }
