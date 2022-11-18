@@ -98,7 +98,13 @@ namespace presentacion
 
         private void btnEliminar_Click(object sender, EventArgs e)
         {
-
+            ArticuloConexion datos = new ArticuloConexion();
+            if(MessageBox.Show("No podrá recuperarlo, ¿está seguro de que lo quiere eliminar?", "Eliminar Artículo", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
+            {
+                Articulo art = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
+                datos.eliminar(art.Id);
+                cargar();
+            }
         }
     }
 }
