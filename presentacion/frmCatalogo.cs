@@ -23,7 +23,20 @@ namespace presentacion
 
         private void frmCatalogo_Load(object sender, EventArgs e)
         {
+            ArticuloConexion datos = new ArticuloConexion();
             cargar();
+            foreach (var propiedad in typeof(Articulo).GetProperties())//por cada prop en las props de mi clase articulo
+            {
+                if (propiedad.Name != "ImagenUrl" && propiedad.Name != "Id")
+                    cboCampo.Items.Add(propiedad.Name);//estoy usando esto para probar codigos dinamicos!
+            }
+            
+            //cboCampo.Items.Add("Código");
+            //cboCampo.Items.Add("Nombre");
+            //cboCampo.Items.Add("Descripción");
+            //cboCampo.Items.Add("Marca");
+            //cboCampo.Items.Add("Categoría");
+            //cboCampo.Items.Add("Precio");
         }
         private void cargar()
         {
@@ -126,9 +139,16 @@ namespace presentacion
             
         }
 
-        private void btnFiltro_Click(object sender, EventArgs e)
+        private void cboCampo_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (cboCampo.SelectedItem.ToString() == "Número" || cboCampo.SelectedItem.ToString() == "Precio")
+            {
 
+            }
+            else
+            {
+
+            }
         }
     }
 }

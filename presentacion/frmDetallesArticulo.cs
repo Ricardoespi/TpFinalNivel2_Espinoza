@@ -45,7 +45,7 @@ namespace presentacion
                 if (articulo.ImagenUrl != null)
                     lblImagenUrlValor.Text = articulo.ImagenUrl;
                 if (articulo.Precio != null)
-                    lblPrecioValor.Text = articulo.Precio.ToString();
+                    lblPrecioValor.Text = Convert.ToDecimal(articulo.Precio).ToString("0.00");
                 Helper.cargarImg(articulo.ImagenUrl, pbxDetalles);
             }
             catch (Exception ex)
