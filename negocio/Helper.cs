@@ -18,7 +18,7 @@ namespace negocio
             }
             catch (Exception ex)
             {
-                pbx.Load("https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/330px-No-Image-Placeholder.svg.png?20200912122019");
+                pbx.Load("https://images.squarespace-cdn.com/content/v1/5a79de08aeb625f12ad4f85a/1527015265032-KYY1AQ4NCW6NB7BK1NDH/placeholder-image-vertical.png");
             }
         }
     }

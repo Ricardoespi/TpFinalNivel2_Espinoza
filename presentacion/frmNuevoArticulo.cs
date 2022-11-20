@@ -51,7 +51,7 @@ namespace presentacion
                 cboCategoria.SelectedValue = articulo.Categoria.Id;
                 txtImagenUrl.Text = articulo.ImagenUrl;
                 Helper.cargarImg(txtImagenUrl.Text, pbxNuevoArticulo);
-                nudPrecio.Value = articulo.Precio;
+                nudPrecio.Value = Convert.ToDecimal(articulo.Precio);
             }
         }
 

@@ -106,5 +106,17 @@ namespace presentacion
                 cargar();
             }
         }
+
+        private void btnDetalles_Click(object sender, EventArgs e)
+        {
+            Articulo aDeta = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
+            frmDetallesArticulo deta = new frmDetallesArticulo(aDeta);
+            deta.ShowDialog();
+        }
+
+        private void btnFiltro_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

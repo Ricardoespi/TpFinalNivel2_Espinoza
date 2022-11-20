@@ -52,6 +52,12 @@
     <Compile Include="frmCatalogo.Designer.cs">
       <DependentUpon>frmCatalogo.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmDetallesArticulo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmDetallesArticulo.Designer.cs">
+      <DependentUpon>frmDetallesArticulo.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmNuevoArticulo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -62,6 +68,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="frmCatalogo.resx">
       <DependentUpon>frmCatalogo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmDetallesArticulo.resx">
+      <DependentUpon>frmDetallesArticulo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmNuevoArticulo.resx">
       <DependentUpon>frmNuevoArticulo.cs</DependentUpon>
