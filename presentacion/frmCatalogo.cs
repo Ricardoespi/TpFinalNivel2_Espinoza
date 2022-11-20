@@ -98,20 +98,32 @@ namespace presentacion
 
         private void btnEliminar_Click(object sender, EventArgs e)
         {
-            ArticuloConexion datos = new ArticuloConexion();
-            if(MessageBox.Show("No podrá recuperarlo, ¿está seguro de que lo quiere eliminar?", "Eliminar Artículo", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
+            try
             {
-                Articulo art = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
-                datos.eliminar(art.Id);
-                cargar();
+                ArticuloConexion datos = new ArticuloConexion();
+                if (MessageBox.Show("No podrá recuperarlo, ¿está seguro de que lo quiere eliminar?", "Eliminar Artículo", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
+                {
+                    Articulo art = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
+                    datos.eliminar(art.Id);
+                    cargar();
+                }
             }
+            catch (Exception ex)
+            { throw ex; }
+            
         }
 
         private void btnDetalles_Click(object sender, EventArgs e)
         {
-            Articulo aDeta = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
-            frmDetallesArticulo deta = new frmDetallesArticulo(aDeta);
-            deta.ShowDialog();
+            try
+            {
+                Articulo aDeta = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
+                frmDetallesArticulo deta = new frmDetallesArticulo(aDeta);
+                deta.ShowDialog();
+            }
+            catch (Exception ex)
+            { throw ex; }
+            
         }
 
         private void btnFiltro_Click(object sender, EventArgs e)

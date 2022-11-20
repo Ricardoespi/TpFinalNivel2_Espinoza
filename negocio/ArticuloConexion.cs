@@ -121,5 +121,9 @@ namespace negocio
                 datos.cerrarConexion();
             }
         }
+        public void filtrar(string campo, string criterio, string filtro)
+        {
+
+        }
     }
 }
