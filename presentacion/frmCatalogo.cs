@@ -99,20 +99,35 @@ namespace presentacion
         {
             try
             {
+                if (validaArt())
+                    return;
                 Articulo aMod = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
                 frmNuevoArticulo mod = new frmNuevoArticulo(aMod);
                 mod.ShowDialog();
                 cargar();
+                
+                
             }
             catch (Exception  ex)
             { throw ex; }
             
+        }
+        private bool validaArt()
+        {
+            if(!(dgvArticulos.CurrentRow != null))
+            {
+                MessageBox.Show("Seleccione un Articulo", "Sin Articulo Seleccionado", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                return true;
+            }
+            return false;
         }
 
         private void btnEliminar_Click(object sender, EventArgs e)
         {
             try
             {
+                if (validaArt())
+                    return;
                 ArticuloConexion datos = new ArticuloConexion();
                 if (MessageBox.Show("No podrá recuperarlo, ¿está seguro de que lo quiere eliminar?", "Eliminar Artículo", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
                 {
@@ -130,6 +145,8 @@ namespace presentacion
         {
             try
             {
+                if (validaArt())
+                    return;
                 Articulo aDeta = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
                 frmDetallesArticulo deta = new frmDetallesArticulo(aDeta);
                 deta.ShowDialog();
