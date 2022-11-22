@@ -1,6 +1,8 @@
 ﻿using dominio;
 using System;
+using System.CodeDom;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Security.AccessControl;
 using System.Text;
@@ -13,41 +15,12 @@ namespace negocio
     {
         public List<Articulo> listar()
         {
-            List<Articulo> articulos = new List<Articulo>();
             AccesoDatos datos = new AccesoDatos();
             try
             {
                 datos.setQuery("select a.Id, A.Codigo, a.Nombre, a.Descripcion, a.IdMarca, m.Descripcion Marca, a.IdCategoria, c.Descripcion Categoria, a.ImagenUrl, a.Precio from ARTICULOS a, MARCAS m, CATEGORIAS c where a.IdMarca = m.Id and a.IdCategoria = c.Id");
                 datos.ejecutarLectura();
-
-                while (datos.Lector.Read())
-                {
-                    Articulo aux = new Articulo();
-                    aux.Id = (int)datos.Lector["Id"];
-                    if (!(datos.Lector["Codigo"] is DBNull))
-                        aux.Codigo = (string)datos.Lector["Codigo"];
-                    if (!(datos.Lector["Nombre"] is DBNull))
-                        aux.Nombre = (string)datos.Lector["Nombre"];
-                    if (!(datos.Lector["Descripcion"] is DBNull))
-                        aux.Descripcion = (string)datos.Lector["Descripcion"];
-                    aux.Marca = new Marca();
-                    if (!(datos.Lector["IdMarca"] is DBNull))
-                        aux.Marca.Id = (int)datos.Lector["IdMarca"];
-                    if (!(datos.Lector["Marca"] is DBNull))
-                        aux.Marca.Descripcion = (string)datos.Lector["Marca"];
-                    aux.Categoria = new Categoria();
-                    if (!(datos.Lector["IdCategoria"] is DBNull))
-                        aux.Categoria.Id = (int)datos.Lector["IdCategoria"];
-                    if (!(datos.Lector["Categoria"] is DBNull))
-                        aux.Categoria.Descripcion = (string)datos.Lector["Categoria"];
-                    if (!(datos.Lector["ImagenUrl"] is DBNull))
-                        aux.ImagenUrl = (string)datos.Lector["ImagenUrl"];
-                    if (!(datos.Lector["Precio"] is DBNull))
-                        aux.Precio = (decimal?)datos.Lector["Precio"];
-                    articulos.Add(aux);
-                }
-
-                return articulos;
+                return transformar(datos.Lector);
             }
             catch (Exception ex)
             { throw ex; }
@@ -121,9 +94,106 @@ namespace negocio
                 datos.cerrarConexion();
             }
         }
-        public void filtrar(string campo, string criterio, string filtro)
+        public List<Articulo> filtrar(string campo, string criterio, string filtro)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                string consulta = "select a.Id, A.Codigo, a.Nombre, a.Descripcion, a.IdMarca, m.Descripcion Marca, a.IdCategoria, c.Descripcion Categoria, a.ImagenUrl, a.Precio from ARTICULOS a, MARCAS m, CATEGORIAS c where a.IdMarca = m.Id and a.IdCategoria = c.Id";
+                if (campo != "Marca" && campo != "Categoria")
+                    consulta += " and a." + campo;
+                else if (campo == "Categoria")
+                    consulta += " and c.Descripcion";
+                else if (campo == "Marca")
+                    consulta += " and m.Descripcion";
+                if (campo != "Precio")
+                {
+                    consulta += " like '";
+                    switch (criterio)
+                    {
+                        case "Contiene":
+                            consulta += "%" + filtro + "%'";
+                            break;
+                        case "Empieza por":
+                            consulta += filtro + "%'";
+                            break;
+                        case "Termina por":
+                            consulta += "%" + filtro + "'";
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                else
+                {
+                    switch (criterio)
+                    {
+                        case "Igual a":
+                            consulta += " = ";
+                            break;
+                        case "Mayor a":
+                            consulta += " > ";
+                            break;
+                        case "Menor a":
+                            consulta += " < ";
+                            break;
+                        default:
+                            break;
+                    }
+                    consulta += filtro;
+                }
+                datos.setQuery(consulta);
+                datos.ejecutarLectura();
+                return transformar(datos.Lector);
+            }
+            catch (Exception ex)
+            { throw ex; }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+        private void configurarQuery()
         {
 
         }
+        private List<Articulo> transformar(SqlDataReader lector)
+        {
+            List<Articulo> lista = new List<Articulo>();
+            try
+            {
+                while (lector.Read())
+                {
+                    Articulo aux = new Articulo();
+                    aux.Id = (int)lector["Id"];
+                    if (!(lector["Codigo"] is DBNull))
+                        aux.Codigo = (string)lector["Codigo"];
+                    if (!(lector["Nombre"] is DBNull))
+                        aux.Nombre = (string)lector["Nombre"];
+                    if (!(lector["Descripcion"] is DBNull))
+                        aux.Descripcion = (string)lector["Descripcion"];
+                    aux.Marca = new Marca();
+                    if (!(lector["IdMarca"] is DBNull))
+                        aux.Marca.Id = (int)lector["IdMarca"];
+                    if (!(lector["Marca"] is DBNull))
+                        aux.Marca.Descripcion = (string)lector["Marca"];
+                    aux.Categoria = new Categoria();
+                    if (!(lector["IdCategoria"] is DBNull))
+                        aux.Categoria.Id = (int)lector["IdCategoria"];
+                    if (!(lector["Categoria"] is DBNull))
+                        aux.Categoria.Descripcion = (string)lector["Categoria"];
+                    if (!(lector["ImagenUrl"] is DBNull))
+                        aux.ImagenUrl = (string)lector["ImagenUrl"];
+                    if (!(lector["Precio"] is DBNull))
+                        aux.Precio = (decimal?)lector["Precio"];
+                    lista.Add(aux);
+                }
+                return lista;
+            }
+            catch (Exception ex)
+            { throw ex; }
+            
+            
+        }// probando a ver que tal funciona para ahorrar codigo
     }
 }

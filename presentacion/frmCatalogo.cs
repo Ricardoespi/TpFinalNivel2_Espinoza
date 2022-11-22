@@ -141,14 +141,71 @@ namespace presentacion
 
         private void cboCampo_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cboCampo.SelectedItem.ToString() == "Número" || cboCampo.SelectedItem.ToString() == "Precio")
+            if (cboCampo.SelectedItem.ToString() == "Precio")
             {
-
+                cboCriterio.Items.Clear();
+                cboCriterio.Items.Add("Mayor a");
+                cboCriterio.Items.Add("Menor a");
+                cboCriterio.Items.Add("Igual a");
             }
             else
             {
-
+                cboCriterio.Items.Clear();
+                cboCriterio.Items.Add("Contiene");
+                cboCriterio.Items.Add("Empieza por");
+                cboCriterio.Items.Add("Termina por");
             }
+        }
+        private bool validarFiltro()
+        {
+            if(cboCampo.SelectedIndex < 0)
+            {
+                MessageBox.Show("Seleccione un campo.");
+                return true;
+            }
+            if(cboCriterio.SelectedIndex < 0)
+            {
+                MessageBox.Show("Seleccione un criterio.");
+                return true;
+            }
+            if(cboCampo.SelectedItem.ToString() == "Precio")
+            {
+                if (string.IsNullOrEmpty(txtFiltro.Text))
+                {
+                    MessageBox.Show("No se puede filtro vacío para campo numérico");
+                    return true;
+                }
+                if (!(EsNumero(txtFiltro.Text)))
+                {
+                    MessageBox.Show("Solo números para campo numérico");
+                    return true;
+                }
+            }
+            return false;
+        }
+        private bool EsNumero(string cadena)
+        {
+            foreach (char letra in cadena)
+            {
+                if (!(char.IsNumber(letra)))
+                    return false;
+            }
+            return true;
+        }
+        private void btnFiltro_Click(object sender, EventArgs e)
+        {
+            ArticuloConexion datos = new ArticuloConexion();
+            try
+            {
+                if (validarFiltro())
+                    return;
+                string campo = cboCampo.SelectedItem.ToString();
+                string criterio = cboCriterio.SelectedItem.ToString();
+                string filtro = txtFiltro.Text;
+                dgvArticulos.DataSource = datos.filtrar(campo, criterio, filtro);
+            }
+            catch (Exception ex)
+            { MessageBox.Show(ex.ToString()); }
         }
     }
 }

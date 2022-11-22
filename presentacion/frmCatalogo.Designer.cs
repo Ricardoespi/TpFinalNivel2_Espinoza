@@ -180,6 +180,7 @@
             this.btnFiltro.TabIndex = 12;
             this.btnFiltro.Text = "Buscar";
             this.btnFiltro.UseVisualStyleBackColor = true;
+            this.btnFiltro.Click += new System.EventHandler(this.btnFiltro_Click);
             // 
             // frmCatalogo
             // 
