@@ -155,7 +155,8 @@ namespace negocio
         }
         private void configurarQuery()
         {
-
+            //aqui podria agregar todo el código que se usa para agregar una condición en SQL
+            //asi usandolo en el método cuantas veces quiera sin mucho código mal utilizado.
         }
         private List<Articulo> transformar(SqlDataReader lector)
         {

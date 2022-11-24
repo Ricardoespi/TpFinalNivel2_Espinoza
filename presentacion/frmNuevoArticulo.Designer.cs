@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmNuevoArticulo));
             this.txtCodigo = new System.Windows.Forms.TextBox();
             this.lblCodigo = new System.Windows.Forms.Label();
             this.lblNombre = new System.Windows.Forms.Label();
@@ -45,6 +46,7 @@
             this.btnAceptar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.pbxNuevoArticulo = new System.Windows.Forms.PictureBox();
+            this.btnAgregarImagen = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.nudPrecio)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbxNuevoArticulo)).BeginInit();
             this.SuspendLayout();
@@ -206,19 +208,31 @@
             // 
             // pbxNuevoArticulo
             // 
-            this.pbxNuevoArticulo.Location = new System.Drawing.Point(323, 12);
+            this.pbxNuevoArticulo.Location = new System.Drawing.Point(384, 12);
             this.pbxNuevoArticulo.Name = "pbxNuevoArticulo";
             this.pbxNuevoArticulo.Size = new System.Drawing.Size(214, 276);
             this.pbxNuevoArticulo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbxNuevoArticulo.TabIndex = 19;
             this.pbxNuevoArticulo.TabStop = false;
             // 
+            // btnAgregarImagen
+            // 
+            this.btnAgregarImagen.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnAgregarImagen.BackgroundImage")));
+            this.btnAgregarImagen.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnAgregarImagen.Location = new System.Drawing.Point(311, 160);
+            this.btnAgregarImagen.Name = "btnAgregarImagen";
+            this.btnAgregarImagen.Size = new System.Drawing.Size(22, 20);
+            this.btnAgregarImagen.TabIndex = 20;
+            this.btnAgregarImagen.UseVisualStyleBackColor = true;
+            this.btnAgregarImagen.Click += new System.EventHandler(this.btnAgregarImagen_Click);
+            // 
             // frmNuevoArticulo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.ClientSize = new System.Drawing.Size(547, 300);
+            this.ClientSize = new System.Drawing.Size(646, 300);
+            this.Controls.Add(this.btnAgregarImagen);
             this.Controls.Add(this.pbxNuevoArticulo);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnAceptar);
@@ -236,6 +250,7 @@
             this.Controls.Add(this.txtNombre);
             this.Controls.Add(this.lblCodigo);
             this.Controls.Add(this.txtCodigo);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmNuevoArticulo";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Nuevo Articulo";
@@ -266,5 +281,6 @@
         private System.Windows.Forms.Button btnAceptar;
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.PictureBox pbxNuevoArticulo;
+        private System.Windows.Forms.Button btnAgregarImagen;
     }
 }

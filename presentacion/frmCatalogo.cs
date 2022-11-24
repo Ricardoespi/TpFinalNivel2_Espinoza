@@ -24,19 +24,19 @@ namespace presentacion
         private void frmCatalogo_Load(object sender, EventArgs e)
         {
             ArticuloConexion datos = new ArticuloConexion();
-            cargar();
-            foreach (var propiedad in typeof(Articulo).GetProperties())//por cada prop en las props de mi clase articulo
+            try
             {
-                if (propiedad.Name != "ImagenUrl" && propiedad.Name != "Id")
-                    cboCampo.Items.Add(propiedad.Name);//estoy usando esto para probar codigos dinamicos!
+                cargar();
+                foreach (var propiedad in typeof(Articulo).GetProperties())//por cada prop en las props de mi clase articulo
+                {
+                    if (propiedad.Name != "ImagenUrl" && propiedad.Name != "Id")
+                        cboCampo.Items.Add(propiedad.Name);//estoy usando esto para probar codigos dinamicos!
+                }
             }
+            catch (Exception ex)
+            { throw ex; }
             
-            //cboCampo.Items.Add("Código");
-            //cboCampo.Items.Add("Nombre");
-            //cboCampo.Items.Add("Descripción");
-            //cboCampo.Items.Add("Marca");
-            //cboCampo.Items.Add("Categoría");
-            //cboCampo.Items.Add("Precio");
+            
         }
         private void cargar()
         {
@@ -99,7 +99,7 @@ namespace presentacion
         {
             try
             {
-                if (validaArt())
+                if (Helper.validaArt(dgvArticulos))
                     return;
                 Articulo aMod = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
                 frmNuevoArticulo mod = new frmNuevoArticulo(aMod);
@@ -112,21 +112,13 @@ namespace presentacion
             { throw ex; }
             
         }
-        private bool validaArt()
-        {
-            if(!(dgvArticulos.CurrentRow != null))
-            {
-                MessageBox.Show("Seleccione un Articulo", "Sin Articulo Seleccionado", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                return true;
-            }
-            return false;
-        }
+        
 
         private void btnEliminar_Click(object sender, EventArgs e)
         {
             try
             {
-                if (validaArt())
+                if (Helper.validaArt(dgvArticulos))
                     return;
                 ArticuloConexion datos = new ArticuloConexion();
                 if (MessageBox.Show("No podrá recuperarlo, ¿está seguro de que lo quiere eliminar?", "Eliminar Artículo", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
@@ -145,7 +137,7 @@ namespace presentacion
         {
             try
             {
-                if (validaArt())
+                if (Helper.validaArt(dgvArticulos))
                     return;
                 Articulo aDeta = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
                 frmDetallesArticulo deta = new frmDetallesArticulo(aDeta);
@@ -158,63 +150,32 @@ namespace presentacion
 
         private void cboCampo_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cboCampo.SelectedItem.ToString() == "Precio")
+            try
             {
-                cboCriterio.Items.Clear();
-                cboCriterio.Items.Add("Mayor a");
-                cboCriterio.Items.Add("Menor a");
-                cboCriterio.Items.Add("Igual a");
-            }
-            else
-            {
-                cboCriterio.Items.Clear();
-                cboCriterio.Items.Add("Contiene");
-                cboCriterio.Items.Add("Empieza por");
-                cboCriterio.Items.Add("Termina por");
-            }
-        }
-        private bool validarFiltro()
-        {
-            if(cboCampo.SelectedIndex < 0)
-            {
-                MessageBox.Show("Seleccione un campo.");
-                return true;
-            }
-            if(cboCriterio.SelectedIndex < 0)
-            {
-                MessageBox.Show("Seleccione un criterio.");
-                return true;
-            }
-            if(cboCampo.SelectedItem.ToString() == "Precio")
-            {
-                if (string.IsNullOrEmpty(txtFiltro.Text))
+                if (cboCampo.SelectedItem.ToString() == "Precio")
                 {
-                    MessageBox.Show("No se puede filtro vacío para campo numérico");
-                    return true;
+                    cboCriterio.Items.Clear();
+                    cboCriterio.Items.Add("Mayor a");
+                    cboCriterio.Items.Add("Menor a");
+                    cboCriterio.Items.Add("Igual a");
                 }
-                if (!(EsNumero(txtFiltro.Text)))
+                else
                 {
-                    MessageBox.Show("Solo números para campo numérico");
-                    return true;
+                    cboCriterio.Items.Clear();
+                    cboCriterio.Items.Add("Contiene");
+                    cboCriterio.Items.Add("Empieza por");
+                    cboCriterio.Items.Add("Termina por");
                 }
             }
-            return false;
-        }
-        private bool EsNumero(string cadena)
-        {
-            foreach (char letra in cadena)
-            {
-                if (!(char.IsNumber(letra)))
-                    return false;
-            }
-            return true;
+            catch (Exception ex)
+            { throw ex; }
         }
         private void btnFiltro_Click(object sender, EventArgs e)
         {
             ArticuloConexion datos = new ArticuloConexion();
             try
             {
-                if (validarFiltro())
+                if (Helper.validarFiltro(cboCampo,cboCriterio,txtFiltro))
                     return;
                 string campo = cboCampo.SelectedItem.ToString();
                 string criterio = cboCriterio.SelectedItem.ToString();
